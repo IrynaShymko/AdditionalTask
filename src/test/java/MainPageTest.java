@@ -1,5 +1,5 @@
 import Pages.MainPage;
-import Pages.ModalPopUpFormPage;
+import Pages.ModalPopUpPage;
 import Pages.PopUpFormPage;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ public class MainPageTest extends TestBase {
         PopUpFormPage popUpFormPage = mainPage.navigateToPopUpFormPage();
         popUpFormPage.clickCreateButton();
         popUpFormPage.switchToLastOpenedWindow();
-        ModalPopUpFormPage modalPopUpFormPage = new ModalPopUpFormPage(driver);
+        ModalPopUpPage modalPopUpFormPage = new ModalPopUpPage(driver);
         modalPopUpFormPage.fillNameField(System.getProperty("firstName"));
         modalPopUpFormPage.fillDateField();
         modalPopUpFormPage.fillChefField();
