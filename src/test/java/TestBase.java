@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import properties.AppProperties;
 import properties.BrowserEnvironment;
 
-import java.util.concurrent.TimeUnit;
 
 
 public class TestBase {
@@ -23,8 +22,6 @@ public class TestBase {
         driver=browserEnvironment.getDriver();
         logger.info("<<<<<<<<<<<<<<<<<< Driver started successfully");
         logger.info("<<<<<<<<<<<<<<<<<< NOTE: Test is executed on environment: "+System.getProperty("env_name"));
-        driver.manage().timeouts().implicitlyWait(17, TimeUnit.SECONDS);
-        driver.get(System.getProperty("appUrl"));
     }
 
     @AfterAll

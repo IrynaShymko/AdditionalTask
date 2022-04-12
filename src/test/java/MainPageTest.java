@@ -11,20 +11,19 @@ import static org.hamcrest.Matchers.equalTo;
 public class MainPageTest extends TestBase {
     private static Logger logger = LoggerFactory.getLogger("MainPageTest.class");
 
-
     @Test
     public void shouldShowMessageOnAlert() {
         MainPage mainPage = new MainPage(driver);
         PopUpFormPage popUpFormPage = mainPage.navigateToPopUpFormPage();
-        popUpFormPage.clickCreateButton();
-        popUpFormPage.switchToLastOpenedWindow();
+        popUpFormPage.clickCreateButton()
+                .switchToLastOpenedWindow();
         ModalPopUpPage modalPopUpFormPage = new ModalPopUpPage(driver);
-        modalPopUpFormPage.fillNameField(System.getProperty("firstName"));
-        modalPopUpFormPage.fillDateField();
-        modalPopUpFormPage.fillChefField();
-        modalPopUpFormPage.fillMealsField(System.getProperty("meal1"), System.getProperty("meal2"), System.getProperty("meal3"));
-        modalPopUpFormPage.fillBonusMealField();
-        modalPopUpFormPage.confirmModalWindow();
+        modalPopUpFormPage.fillNameField(System.getProperty("firstName"))
+                .fillDateField()
+                .fillChefField()
+                .fillMealsField(System.getProperty("meal1"), System.getProperty("meal2"), System.getProperty("meal3"))
+                .fillBonusMealField()
+                .confirmModalWindow();
         String actualAlertMessage = modalPopUpFormPage.getTextFromAlert();
         modalPopUpFormPage.acceptAlert();
         assertThat("Alert message is incorrect", actualAlertMessage, equalTo(System.getProperty("expectedMessage")));

@@ -12,10 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import properties.readers.BrowserYmlReader;
 
+import java.time.Duration;
+
 public class BrowserEnvironment {
-    private String browserName;
-    private int webElementTimeOut;
-    private int webBrowserImplicitTimeOut;
+    private static String browserName;
+    private static int webElementTimeOut;
+    private static int webBrowserImplicitTimeOut;
 
     private static Logger logger = LoggerFactory.getLogger("properties.BrowserEnvironment.class");
     private WebDriver driver;
@@ -55,6 +57,7 @@ public class BrowserEnvironment {
                 WebDriverManager.chromedriver().setup();
                 optionsChrome.addArguments("start-maximized");
                 driver = new ChromeDriver(optionsChrome);
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(BrowserEnvironment.webBrowserImplicitTimeOut));
                 driver.get(System.getProperty("appUrl"));
                 break;
             case "firefox":
@@ -62,23 +65,25 @@ public class BrowserEnvironment {
                 WebDriverManager.firefoxdriver().setup();
                 optionsFirefox.addArguments("start-maximized");
                 driver = new FirefoxDriver(optionsFirefox);
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(BrowserEnvironment.webBrowserImplicitTimeOut));
                 driver.get(System.getProperty("appUrl"));
                 break;
             default:
                 InternetExplorerOptions optionsdefault = new InternetExplorerOptions();
                 WebDriverManager.iedriver().setup();
                 driver = new InternetExplorerDriver(optionsdefault);
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(BrowserEnvironment.webBrowserImplicitTimeOut));
                 driver.get(System.getProperty("appUrl"));
         }
         this.driver = driver;
         return this.driver;
     }
 
-    public int getWebElementTimeOut() {
+    public static int getWebElementTimeOut() {
         return webElementTimeOut;
     }
 
-    public int getWebBrowserImplicitTimeOut() {
+    public static int getWebBrowserImplicitTimeOut() {
         return webBrowserImplicitTimeOut;
     }
 

@@ -7,6 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import properties.BrowserEnvironment;
 
 import java.time.Duration;
 import java.util.List;
@@ -19,7 +20,7 @@ public class BasePage {
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(BrowserEnvironment.getWebElementTimeOut()));
         actions = new Actions(driver);
         PageFactory.initElements(driver, this);
     }
@@ -28,10 +29,11 @@ public class BasePage {
         webElement.click();
     }
 
-    public void hoverAndClick(WebElement webElement) {
+    public void hoverAndDoubleClick(WebElement webElement) {
+        actions = new Actions(driver);
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
         actions.moveToElement(webElement).perform();
-        actions.moveToElement(webElement).click().perform();
+        actions.moveToElement(webElement).doubleClick().perform();
     }
 
     public String getTextFromAlert() {
@@ -57,5 +59,10 @@ public class BasePage {
     public void chooseRandomValueFromList(List<WebElement> webElements) {
         int index = new Random().nextInt(webElements.size());
         webElements.get(index).click();
+    }
+    public void switchToLastOpenedWindow(){
+        for(String windowHandle: driver.getWindowHandles()){
+            driver.switchTo().window(windowHandle);
+        }
     }
 }
