@@ -6,7 +6,7 @@ environment:
     meal1: Banana
     meal2: Potato
     meal3: Mango
-    expectedMessage: Form send with success
+    expectedMessage: dinner created
     active: true
 
   testEnv:
@@ -16,7 +16,7 @@ environment:
     meal1: Apple
     meal2: Onion
     meal3: Papaya
-    expectedMessage: Form send with success
+    expectedMessage: dinner created
     active: false
 
   defaultEnv:
@@ -26,5 +26,5 @@ environment:
     meal1: Cucumber
     meal2: Potato
     meal3: Apple
-    expectedMessage: Form send with success
+    expectedMessage: dinner created
     active: false

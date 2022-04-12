@@ -1,5 +1,7 @@
 package Pages;
 
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -19,6 +21,7 @@ public class ModalPopUpFormPage {
     private WebDriverWait wait;
     private Actions actions;
     private static Logger logger = LoggerFactory.getLogger("ModalPopUpFormPage.class");
+    private By mealsFoodIcon2XPath = By.xpath("//div[@id='createDinnerMeals-awepw']//li[@class='awe-li']//i");
 
     public ModalPopUpFormPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -67,6 +70,9 @@ public class ModalPopUpFormPage {
     @FindBy(xpath = "//div[@data-i='createDinnerBonusMealId']//input[@placeholder=\"Search...\"]")
     private WebElement searchFieldBonusMeal;
 
+    @FindBy(xpath = "//div[@data-i='createDinner']//button[@class='awe-btn awe-okbtn o-pbtn']")
+    private WebElement confirmModalWindowButton;
+
     public void fillNameField(String name) {
         wait = new WebDriverWait(driver, Duration.ofSeconds(12));
         wait.until(ExpectedConditions.visibilityOf(nameField));
@@ -105,38 +111,45 @@ public class ModalPopUpFormPage {
         chooseChef();
     }
 
-    public void chooseFirstProduct(String meal1) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(18));
+    public void chooseFirstProduct(String meal1) throws InterruptedException {
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOf(searchMealField));
         searchMealField.sendKeys(meal1);
         actions = new Actions(driver);
         nameField.click();
+        Thread.sleep(2000);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.elementToBeClickable(mealsFoundIcon));
         actions.moveToElement(mealsFoundIcon).perform();
         actions.moveToElement(mealsFoundIcon).click().perform();
         okConfirmationOfMealsButton.click();
     }
 
-    public void chooseAnotherProduct(String meal) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(18));
+    public void chooseAnotherProduct(String meal) throws InterruptedException {
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.elementToBeClickable(mealsFieldOpenButtonForAddAnotherProduct));
         actions.moveToElement(mealsFieldOpenButtonForAddAnotherProduct).perform();
-        actions.moveToElement(mealsFieldOpenButtonForAddAnotherProduct).click().perform();
+        actions.moveToElement(mealsFieldOpenButtonForAddAnotherProduct).doubleClick().perform();
         wait.until(ExpectedConditions.visibilityOf(searchMealField));
         searchMealField.clear();
         searchMealField.sendKeys(meal);
         nameField.click();
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='createDinnerMeals-awepw']//li[@class='awe-li']//i")));
+        Thread.sleep(2000);
         wait.until(ExpectedConditions.elementToBeClickable(mealsFoundIcon));
         actions.moveToElement(mealsFoundIcon).perform();
         actions.moveToElement(mealsFoundIcon).click().perform();
         okConfirmationOfMealsButton.click();
     }
 
-    public void fillMealsField(String meal1, String meal2, String meal3) {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(18));
+    public void fillMealsField(String meal1, String meal2, String meal3) throws InterruptedException {
         mealsFieldOpenButtonForAddFirstProduct.click();
         chooseFirstProduct(meal1);
+        Thread.sleep(2000);
+
         chooseAnotherProduct(meal2);
+        Thread.sleep(2000);
+
         chooseAnotherProduct(meal3);
     }
 
@@ -152,8 +165,22 @@ public class ModalPopUpFormPage {
     public void fillBonusMealField() {
         openBonusMealList();
         selectBonusMeal();
-//    searchFieldBonusMeal.sendKeys(bonus);
-//    actions.sendKeys(Keys.ENTER) - nużno dorabotat, jesli ispolzovat poisk po parametru, ili udalit - jesli budet random;
+    }
+
+    public void confirmModalWindow(){
+        confirmModalWindowButton.click();
+    }
+
+    public String getTextFromAlert(){
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = driver.switchTo().alert();
+        String actualAlertMessage=alert.getText();
+        return actualAlertMessage;
+    }
+
+    public void acceptAlert(){
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
     }
 
 }
