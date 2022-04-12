@@ -125,32 +125,48 @@ public class ModalPopUpFormPage {
         okConfirmationOfMealsButton.click();
     }
 
-    public void chooseAnotherProduct(String meal) throws InterruptedException {
+    public void chooseAnotherProduct(String meal) {
         wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.elementToBeClickable(mealsFieldOpenButtonForAddAnotherProduct));
-        actions.moveToElement(mealsFieldOpenButtonForAddAnotherProduct).perform();
-        actions.moveToElement(mealsFieldOpenButtonForAddAnotherProduct).doubleClick().perform();
-        wait.until(ExpectedConditions.visibilityOf(searchMealField));
+//        actions.moveToElement(mealsFieldOpenButtonForAddAnotherProduct).perform();
+//        actions.moveToElement(mealsFieldOpenButtonForAddAnotherProduct).click().perform();
+        hoverAndClick(mealsFieldOpenButtonForAddAnotherProduct, driver);
+        wait.until(ExpectedConditions.elementToBeClickable(searchMealField));
         searchMealField.clear();
         searchMealField.sendKeys(meal);
         nameField.click();
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id='createDinnerMeals-awepw']//li[@class='awe-li']//i")));
-        Thread.sleep(2000);
-        wait.until(ExpectedConditions.elementToBeClickable(mealsFoundIcon));
-        actions.moveToElement(mealsFoundIcon).perform();
-        actions.moveToElement(mealsFoundIcon).click().perform();
-        okConfirmationOfMealsButton.click();
+        try {
+            actions.moveToElement(mealsFieldOpenButtonForAddAnotherProduct).perform();
+            actions.moveToElement(mealsFieldOpenButtonForAddAnotherProduct).click().perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            wait.until(ExpectedConditions.elementToBeClickable(mealsFoundIcon));
+            actions.moveToElement(mealsFoundIcon).perform();
+            actions.moveToElement(mealsFoundIcon).click().perform();
+            okConfirmationOfMealsButton.click();
+        }
     }
 
-    public void fillMealsField(String meal1, String meal2, String meal3) throws InterruptedException {
-        mealsFieldOpenButtonForAddFirstProduct.click();
-        chooseFirstProduct(meal1);
-        Thread.sleep(2000);
+    public void hoverAndClick(WebElement webElement, WebDriver driver) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(webElement).perform();
+        actions.moveToElement(webElement).click().perform();
+    }
 
-        chooseAnotherProduct(meal2);
-        Thread.sleep(2000);
+    public void fillMealsField(String meal1, String meal2, String meal3) {
+        try {
+            mealsFieldOpenButtonForAddFirstProduct.click();
+            chooseFirstProduct(meal1);
+            Thread.sleep(1000);
 
-        chooseAnotherProduct(meal3);
+            chooseAnotherProduct(meal2);
+            Thread.sleep(1000);
+
+            chooseAnotherProduct(meal3);
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
+        }
     }
 
     public void openBonusMealList() {
@@ -167,18 +183,17 @@ public class ModalPopUpFormPage {
         selectBonusMeal();
     }
 
-    public void confirmModalWindow(){
+    public void confirmModalWindow() {
         confirmModalWindowButton.click();
     }
 
-    public String getTextFromAlert(){
+    public String getTextFromAlert() {
         wait.until(ExpectedConditions.alertIsPresent());
         Alert alert = driver.switchTo().alert();
-        String actualAlertMessage=alert.getText();
-        return actualAlertMessage;
+        return alert.getText();
     }
 
-    public void acceptAlert(){
+    public void acceptAlert() {
         Alert alert = driver.switchTo().alert();
         alert.accept();
     }

@@ -27,9 +27,9 @@ public class TestBase {
         driver.get(System.getProperty("appUrl"));
     }
 
-//    @AfterAll
-//    static void tearDown() {
-//        driver.quit();
-//        logger.info("<<<<<<<<<<<<<<<<<<Driver closed properly");
-//    }
+    @AfterAll
+    static void tearDown() {
+        driver.quit();
+        logger.info("<<<<<<<<<<<<<<<<<<Driver closed properly");
+    }
 }

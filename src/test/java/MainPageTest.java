@@ -13,7 +13,7 @@ public class MainPageTest extends TestBase {
 
 
     @Test
-    public void shouldShowMessageOnAlert() throws InterruptedException {
+    public void shouldShowMessageOnAlert() {
         MainPage mainPage = new MainPage(driver);
         PopUpFormPage popUpFormPage = mainPage.navigateToPopUpFormPage();
         popUpFormPage.clickCreateButton();
