@@ -24,8 +24,8 @@ public class BrowserEnvironment {
 
     public BrowserEnvironment() {
         setBrowserName();
-        this.webElementTimeOut = 10;
-        this.webBrowserImplicitTimeOut = 12;
+        this.webElementTimeOut = 40;
+        this.webBrowserImplicitTimeOut = 15;
         this.initBrowserSettings();
         logger.info("<<<<<<<<<<<<<<<<<< browserName: " + getBrowserName());
     }
@@ -57,7 +57,7 @@ public class BrowserEnvironment {
                 WebDriverManager.chromedriver().setup();
                 optionsChrome.addArguments("start-maximized");
                 driver = new ChromeDriver(optionsChrome);
-                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(BrowserEnvironment.webBrowserImplicitTimeOut));
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(webBrowserImplicitTimeOut));
                 driver.get(System.getProperty("appUrl"));
                 break;
             case "firefox":
@@ -65,14 +65,14 @@ public class BrowserEnvironment {
                 WebDriverManager.firefoxdriver().setup();
                 optionsFirefox.addArguments("start-maximized");
                 driver = new FirefoxDriver(optionsFirefox);
-                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(BrowserEnvironment.webBrowserImplicitTimeOut));
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(webBrowserImplicitTimeOut));
                 driver.get(System.getProperty("appUrl"));
                 break;
             default:
                 InternetExplorerOptions optionsdefault = new InternetExplorerOptions();
                 WebDriverManager.iedriver().setup();
                 driver = new InternetExplorerDriver(optionsdefault);
-                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(BrowserEnvironment.webBrowserImplicitTimeOut));
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(webBrowserImplicitTimeOut));
                 driver.get(System.getProperty("appUrl"));
         }
         this.driver = driver;

@@ -1,23 +1,20 @@
 package Pages;
 
 import Base.BasePage;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MainPage extends BasePage {
+    private SideBarPage sideBarPage;
+    private static Logger logger = LoggerFactory.getLogger("MainPage.class");
     public MainPage(WebDriver driver) {
         super(driver);
+        this.sideBarPage=new SideBarPage(driver);
+        logger.info("########## MainPage is created");
     }
 
-    @FindBy(xpath = "//a[contains(text(), 'PopupForm')]")
-    private WebElement popUpFormLink;
-
     public PopUpFormPage navigateToPopUpFormPage(){
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();"
-                , popUpFormLink);
-        clickOnElement(popUpFormLink);
-        return new PopUpFormPage(driver);
+        return sideBarPage.navigateToPopUpFormPageFromSideBar();
     }
 }

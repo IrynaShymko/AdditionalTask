@@ -7,6 +7,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import properties.BrowserEnvironment;
 
 import java.time.Duration;
@@ -17,6 +19,7 @@ public class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected Actions actions;
+    private static Logger logger = LoggerFactory.getLogger("BasePage.class");
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -39,12 +42,14 @@ public class BasePage {
     public String getTextFromAlert() {
         wait.until(ExpectedConditions.alertIsPresent());
         Alert alert = driver.switchTo().alert();
+        logger.info("<<<<<<<<<< Got text from alert: "+alert.getText());
         return alert.getText();
     }
 
     public void acceptAlert() {
         Alert alert = driver.switchTo().alert();
         alert.accept();
+        logger.info("<<<<<<<<<< Alert accepted");
     }
 
     public void clearFieldAndSendKeys(WebElement webElement, String value) {
@@ -58,6 +63,7 @@ public class BasePage {
 
     public void chooseRandomValueFromList(List<WebElement> webElements) {
         int index = new Random().nextInt(webElements.size());
+        wait.until(ExpectedConditions.elementToBeClickable(webElements.get(index)));
         webElements.get(index).click();
     }
     public void switchToLastOpenedWindow(){

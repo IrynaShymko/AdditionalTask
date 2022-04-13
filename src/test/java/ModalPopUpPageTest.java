@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class MainPageTest extends TestBase {
-    private static Logger logger = LoggerFactory.getLogger("MainPageTest.class");
+public class ModalPopUpPageTest extends TestBase {
+    private static Logger logger = LoggerFactory.getLogger("ModalPopUpPageTest.class");
 
     @Test
     public void shouldShowMessageOnAlert() {
@@ -25,6 +25,8 @@ public class MainPageTest extends TestBase {
                 .fillBonusMealField()
                 .confirmModalWindow();
         String actualAlertMessage = modalPopUpFormPage.getTextFromAlert();
+        logger.info("<<<<<<<<<< Actual alert message is: "+ actualAlertMessage);
+        logger.info("<<<<<<<<<< Expected alert message is: "+ System.getProperty("expectedMessage"));
         modalPopUpFormPage.acceptAlert();
         assertThat("Alert message is incorrect", actualAlertMessage, equalTo(System.getProperty("expectedMessage")));
     }
