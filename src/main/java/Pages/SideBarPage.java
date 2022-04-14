@@ -1,7 +1,6 @@
 package Pages;
 
 import Base.BasePage;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,8 +19,7 @@ public class SideBarPage extends BasePage {
     private WebElement popUpFormLink;
 
     public PopUpFormPage navigateToPopUpFormPageFromSideBar(){
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();"
-                , popUpFormLink);
+        scrollToElement(popUpFormLink);
         clickOnElement(popUpFormLink);
         return new PopUpFormPage(driver);
     }

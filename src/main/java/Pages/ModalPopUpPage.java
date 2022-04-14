@@ -103,16 +103,7 @@ public class ModalPopUpPage extends BasePage {
         return this;
     }
 
-    public void chooseFirstProduct(String meal1) {
-        wait.until(ExpectedConditions.visibilityOf(searchMealField));
-        sendKeys(searchMealField, meal1);
-        clickOnElement(nameField);
-        hoverAndDoubleClick(mealsFoundIcon);
-        clickOnElement(okConfirmationOfMealsButton);
-        logger.info("<<<<<<<<<< First product is chosen: "+ meal1);}
-
-
-    public void chooseAnotherProduct(String meal) {
+    public void chooseProduct(String meal) {
         wait.until(ExpectedConditions.elementToBeClickable(searchMealField));
         clearFieldAndSendKeys(searchMealField, meal);
         clickOnElement(nameField);
@@ -123,25 +114,25 @@ public class ModalPopUpPage extends BasePage {
         } finally {
             hoverAndDoubleClick(mealsFoundIcon);
             clickOnElement(okConfirmationOfMealsButton);
-            logger.info("<<<<<<<<<< Another product is chosen: "+ meal);
+            logger.info("<<<<<<<<<< Product is chosen: " + meal);
         }
     }
 
     public ModalPopUpPage fillMealsField(String meal1, String meal2, String meal3) {
         try {
             hoverAndDoubleClick(mealsFieldOpenButtonForAddProduct);
-            chooseFirstProduct(meal1);
+            chooseProduct(meal1);
             Thread.sleep(1000);
             hoverAndDoubleClick(mealsFieldOpenButtonForAddProduct);
-            chooseAnotherProduct(meal2);
+            chooseProduct(meal2);
             Thread.sleep(1000);
             hoverAndDoubleClick(mealsFieldOpenButtonForAddProduct);
-            chooseAnotherProduct(meal3);
+            chooseProduct(meal3);
             logger.info("<<<<<<<<<< Meals field is filled");
-            }
-        catch (InterruptedException interruptedException) {
+        } catch (InterruptedException interruptedException) {
             interruptedException.printStackTrace();
-        }return this;
+        }
+        return this;
     }
 
     public void openBonusMealList() {

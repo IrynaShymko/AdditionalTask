@@ -1,6 +1,7 @@
 package Base;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -30,6 +31,7 @@ public class BasePage {
 
     public void clickOnElement(WebElement webElement) {
         webElement.click();
+        logger.info("<<<<<<<<<< Click on element: "+webElement.getText());
     }
 
     public void hoverAndDoubleClick(WebElement webElement) {
@@ -37,6 +39,7 @@ public class BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
         actions.moveToElement(webElement).perform();
         actions.moveToElement(webElement).doubleClick().perform();
+        logger.info("<<<<<<<<<< Hover and double click on element: "+webElement.getText());
     }
 
     public String getTextFromAlert() {
@@ -55,10 +58,12 @@ public class BasePage {
     public void clearFieldAndSendKeys(WebElement webElement, String value) {
         webElement.clear();
         webElement.sendKeys(value);
+        logger.info("<<<<<<<<<< Send keys on element: "+webElement.getText() + "Value is: "+value);
     }
 
     public void sendKeys(WebElement webElement, String value) {
         webElement.sendKeys(value);
+        logger.info("<<<<<<<<<< Send keys Value is: "+value);
     }
 
     public void chooseRandomValueFromList(List<WebElement> webElements) {
@@ -70,5 +75,12 @@ public class BasePage {
         for(String windowHandle: driver.getWindowHandles()){
             driver.switchTo().window(windowHandle);
         }
+        logger.info("<<<<<<<<<< Switch to last opened window");
+    }
+
+    public void scrollToElement(WebElement webElement){
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();"
+                , webElement);
+        logger.info("<<<<<<<<<< Scroll to element: "+webElement.getText());
     }
 }
