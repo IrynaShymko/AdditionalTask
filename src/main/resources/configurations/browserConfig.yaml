@@ -1,5 +1,5 @@
 browserName:
-    chrome
+  chrome
 #    firefox
 webElementTimeOut: 25  #Explicitly wait
 webBrowserImplicitTimeOut: 10

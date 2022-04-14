@@ -25,8 +25,8 @@ public class ModalPopUpPageTest extends TestBase {
                 .fillBonusMealField()
                 .confirmModalWindow();
         String actualAlertMessage = modalPopUpFormPage.getTextFromAlert();
-        logger.info("<<<<<<<<<< Actual alert message is: "+ actualAlertMessage);
-        logger.info("<<<<<<<<<< Expected alert message is: "+ System.getProperty("expectedMessage"));
+        logger.info("<<<<<<<<<< Actual alert message is: " + actualAlertMessage);
+        logger.info("<<<<<<<<<< Expected alert message is: " + System.getProperty("expectedMessage"));
         modalPopUpFormPage.acceptAlert();
         assertThat("Alert message is incorrect", actualAlertMessage, equalTo(System.getProperty("expectedMessage")));
     }

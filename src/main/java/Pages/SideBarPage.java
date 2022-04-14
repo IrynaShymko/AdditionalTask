@@ -18,7 +18,7 @@ public class SideBarPage extends BasePage {
     @FindBy(xpath = "//a[contains(text(), 'PopupForm')]")
     private WebElement popUpFormLink;
 
-    public PopUpFormPage navigateToPopUpFormPageFromSideBar(){
+    public PopUpFormPage navigateToPopUpFormPageFromSideBar() {
         scrollToElement(popUpFormLink);
         clickOnElement(popUpFormLink);
         return new PopUpFormPage(driver);
