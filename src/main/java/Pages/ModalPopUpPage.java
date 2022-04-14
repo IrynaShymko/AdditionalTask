@@ -106,6 +106,7 @@ public class ModalPopUpPage extends BasePage {
     public void chooseProduct(String meal) {
         wait.until(ExpectedConditions.elementToBeClickable(searchMealField));
         clearFieldAndSendKeys(searchMealField, meal);
+//        trzeba zmienić fokus, bo nie zawsze wyszukiwanie dziala bez tej zmiany
         clickOnElement(nameField);
         try {
             hoverAndDoubleClick(mealsFieldOpenButtonForAddProduct);
