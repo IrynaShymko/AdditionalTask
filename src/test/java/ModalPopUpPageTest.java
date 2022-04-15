@@ -1,4 +1,3 @@
-import Pages.MainPage;
 import Pages.ModalPopUpPage;
 import Pages.PopUpFormPage;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,6 @@ public class ModalPopUpPageTest extends TestBase {
 
     @Test
     public void shouldShowMessageOnAlert() {
-        MainPage mainPage = new MainPage(driver);
         PopUpFormPage popUpFormPage = mainPage.navigateToPopUpFormPage();
         popUpFormPage.clickCreateButton()
                 .switchToLastOpenedWindow();

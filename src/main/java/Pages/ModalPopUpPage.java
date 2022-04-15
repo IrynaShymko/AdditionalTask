@@ -71,11 +71,11 @@ public class ModalPopUpPage extends BasePage {
         return this;
     }
 
-    public void clickCalendarIcon() {
+    private void clickCalendarIcon() {
         clickOnElement(calendarIcon);
     }
 
-    public void chooseRandomDayOnCalendar() {
+    private void chooseRandomDayOnCalendar() {
         chooseRandomValueFromList(daysOfMonth);
     }
 
@@ -86,11 +86,11 @@ public class ModalPopUpPage extends BasePage {
         return this;
     }
 
-    public void clickChefFieldOpenButton() {
+    private void clickChefFieldOpenButton() {
         clickOnElement(chefFieldOpenButton);
     }
 
-    public void chooseChef() {
+    private void chooseChef() {
         wait.until(ExpectedConditions.visibilityOf(allChefsElement));
         int index = new Random().nextInt(listOfChefs.size());
         hoverAndDoubleClick(listOfChefs.get(index));
@@ -103,44 +103,43 @@ public class ModalPopUpPage extends BasePage {
         return this;
     }
 
-    public void chooseProduct(String meal) {
-        wait.until(ExpectedConditions.elementToBeClickable(searchMealField));
-        clearFieldAndSendKeys(searchMealField, meal);
-//        trzeba zmienić fokus, bo nie zawsze wyszukiwanie dziala bez tej zmiany
-        clickOnElement(nameField);
+    private void chooseProduct(String meal) {
         try {
-            hoverAndDoubleClick(mealsFieldOpenButtonForAddProduct);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            hoverAndDoubleClick(mealsFoundIcon);
-            clickOnElement(okConfirmationOfMealsButton);
-            logger.info("<<<<<<<<<< Product is chosen: " + meal);
+            wait.until(ExpectedConditions.elementToBeClickable(searchMealField));
+            clearFieldAndSendKeys(searchMealField, meal);
+//        trzeba zmienić fokus, bo nie zawsze wyszukiwanie dziala bez tej zmiany
+            clickOnElement(nameField);
+            try {
+                hoverAndDoubleClick(mealsFieldOpenButtonForAddProduct);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                hoverAndDoubleClick(mealsFoundIcon);
+                clickOnElement(okConfirmationOfMealsButton);
+                logger.info("<<<<<<<<<< Product is chosen: " + meal);
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
         }
     }
 
     public ModalPopUpPage fillMealsField(String meal1, String meal2, String meal3) {
-        try {
-            hoverAndDoubleClick(mealsFieldOpenButtonForAddProduct);
-            chooseProduct(meal1);
-            Thread.sleep(1000);
-            hoverAndDoubleClick(mealsFieldOpenButtonForAddProduct);
-            chooseProduct(meal2);
-            Thread.sleep(1000);
-            hoverAndDoubleClick(mealsFieldOpenButtonForAddProduct);
-            chooseProduct(meal3);
-            logger.info("<<<<<<<<<< Meals field is filled");
-        } catch (InterruptedException interruptedException) {
-            interruptedException.printStackTrace();
-        }
+        hoverAndDoubleClick(mealsFieldOpenButtonForAddProduct);
+        chooseProduct(meal1);
+        hoverAndDoubleClick(mealsFieldOpenButtonForAddProduct);
+        chooseProduct(meal2);
+        hoverAndDoubleClick(mealsFieldOpenButtonForAddProduct);
+        chooseProduct(meal3);
+        logger.info("<<<<<<<<<< Meals field is filled");
         return this;
     }
 
-    public void openBonusMealList() {
+    private void openBonusMealList() {
         clickOnElement(iconForOpenBonusMealList);
     }
 
-    public void selectBonusMeal() {
+    private void selectBonusMeal() {
         chooseRandomValueFromList(bonusMealList);
     }
 

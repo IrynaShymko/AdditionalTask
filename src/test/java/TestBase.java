@@ -1,3 +1,4 @@
+import Pages.MainPage;
 import org.junit.jupiter.api.AfterAll;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ public class TestBase {
     protected static WebDriver driver;
     private static AppProperties appProperties;
     private static BrowserEnvironment browserEnvironment;
+    protected MainPage mainPage = new MainPage(driver);
 
     @BeforeAll
     static void BeforeAll() {
