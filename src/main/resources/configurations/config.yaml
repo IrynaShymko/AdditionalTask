@@ -14,7 +14,7 @@ environment:
     meal2: Potato
     meal3: Mango
     expectedMessage: dinner created
-    active: true
+    active: false
 
   testEnv:
     appUrl: https://demo.aspnetawesome.com/
@@ -24,7 +24,7 @@ environment:
     meal2: Onion
     meal3: Papaya
     expectedMessage: dinner created
-    active: false
+    active: true
 
   defaultEnv:
     appUrl: https://demo.aspnetawesome.com/
